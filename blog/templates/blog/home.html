@@ -3,8 +3,9 @@
 {% for post in posts %}
 <div class="card mb-4">
     <div class="card-header article-metadata">
-        <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" alt="">
-        <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{post.author}}</a> <small class="text-muted">{{post.date_posted|date:"jS F, Y"}}</small>
+        <a class="mr-2" href="{% url 'user-posts' post.author.username %}">
+          <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" alt="">
+          {{post.author}}</a> <small class="text-muted">{{post.date_posted|date:"jS F, Y"}}</small>
     </div>
     <div class="card-body">
         <h2 class="card-title"><a href="{% url 'post-detail' post.id %}" class="article-title">{{post.title}}</a></h2>
