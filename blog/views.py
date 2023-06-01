@@ -62,9 +62,13 @@ class UserPostListView(ListView):
     template_name = 'blog/user_posts.html' #<app>/<model>_<viewType>.html
     context_object_name = "posts"
     paginate_by = 5
-    
+    # return the posts of the user with the username passed in the url. also list of users for the sidebar
     def get_queryset(self):
-        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        user = get_object_or_404(User,username=self.kwargs.get('username'))
         return Post.objects.filter(author=user).order_by('-date_posted')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['users'] = User.objects.all().exclude(username=self.kwargs.get('username')) 
+        return context
 def about(request):
     return render(request,'blog/about.html',{'title': 'About'})
