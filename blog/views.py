@@ -18,6 +18,11 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+    # more posts from the same author excluding the current post
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['posts'] = Post.objects.filter(author=self.object.author).exclude(id=self.object.id)
+        return context
 
 class PostCreateView(LoginRequiredMixin,CreateView):
     model = Post
