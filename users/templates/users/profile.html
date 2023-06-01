@@ -20,3 +20,24 @@
   </form>
   </div>
 {% endblock content %}
+{% block sidebar %}
+<div class="col-md-4">
+  <div class="content-section">
+      <h3>Older Posts</h3>
+
+      <p class='text-muted'>More posts from you.
+      <ul class="list-group">
+          {% for post in posts %}
+              <li class="list-group-item list-group-item-light">
+                  <a class="mr-2" style="text-decoration: none" href="{% url 'post-detail' post.id %}">
+                      {{ post.title }}
+                  </a>    
+                  <small>{{ post.date_posted|date:"jS M, Y" }}</small>
+              </li>
+              
+          {% endfor %}
+      </ul>
+      </p>
+  </div>
+</div>
+{% endblock %}
